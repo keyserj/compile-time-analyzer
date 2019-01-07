@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.28407.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompileTimeAnalyzer", "CompileTimeAnalyzer\CompileTimeAnalyzer.csproj", "{76AB4386-5116-4A54-BDFB-FE63FFDC8248}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompileTimeAnalyzerTests", "CompileTimeAnalyzerTests\CompileTimeAnalyzerTests.csproj", "{87873CED-B3E0-447B-862F-728D5FF93279}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CompileTimeAnalyzerTests", "CompileTimeAnalyzerTests\CompileTimeAnalyzerTests.csproj", "{87873CED-B3E0-447B-862F-728D5FF93279}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{44AE8D07-F82B-421D-AF6B-22A54E46DD32}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{87873CED-B3E0-447B-862F-728D5FF93279}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87873CED-B3E0-447B-862F-728D5FF93279}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87873CED-B3E0-447B-862F-728D5FF93279}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44AE8D07-F82B-421D-AF6B-22A54E46DD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44AE8D07-F82B-421D-AF6B-22A54E46DD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44AE8D07-F82B-421D-AF6B-22A54E46DD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44AE8D07-F82B-421D-AF6B-22A54E46DD32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
