@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.IO;
 
 namespace CompileTimeAnalyzer
 {
@@ -16,9 +16,14 @@ namespace CompileTimeAnalyzer
 </Project>";
         }
 
-        public void Generate()
+        public string Generate(string outputDirectory = "./CompiledProject", string projectName = "CompiledProject")
         {
-            throw new NotImplementedException();
+            Directory.CreateDirectory(outputDirectory);
+
+            string projectFilePath = Path.Combine(outputDirectory, $"{projectName}.csproj");
+            File.WriteAllText(projectFilePath, GetCsprojText());
+
+            return projectFilePath;
         }
     }
 }
