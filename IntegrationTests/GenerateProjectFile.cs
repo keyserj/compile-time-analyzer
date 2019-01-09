@@ -4,11 +4,11 @@ using Xunit;
 
 namespace IntegrationTests
 {
-    public class ProjectFileGenerationTests
+    public class GenerateProjectFile
     {
         private ProjectFileGenerator _projectFileGenerator;
 
-        public ProjectFileGenerationTests()
+        public GenerateProjectFile()
         {
             _projectFileGenerator = new ProjectFileGenerator();
         }
