@@ -1,9 +1,23 @@
 ﻿using System.IO;
+using System.IO.Abstractions;
 
 namespace CompileTimeAnalyzer
 {
     public class ProjectFileGenerator
     {
+        private readonly IFileSystem _fileSystem;
+
+        public ProjectFileGenerator(IFileSystem fileSystem)
+        {
+            _fileSystem = fileSystem;
+        }
+
+        public ProjectFileGenerator() :
+            this(fileSystem: new FileSystem())
+        {
+
+        }
+
         public string GetCsprojText()
         {
             return
@@ -18,10 +32,10 @@ namespace CompileTimeAnalyzer
 
         public string Generate(string outputDirectory = "./CompiledProject", string projectName = "CompiledProject")
         {
-            Directory.CreateDirectory(outputDirectory);
+            _fileSystem.Directory.CreateDirectory(outputDirectory);
 
             string projectFilePath = Path.Combine(outputDirectory, $"{projectName}.csproj");
-            File.WriteAllText(projectFilePath, GetCsprojText());
+            _fileSystem.File.WriteAllText(projectFilePath, GetCsprojText());
 
             return projectFilePath;
         }
