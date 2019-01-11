@@ -9,21 +9,10 @@ namespace CompileTimeAnalyzerTests
         public void Evaluate_template_that_has_no_expressions()
         {
             TemplateEvaluator templateEvaluator = new TemplateEvaluator();
-            string template =
-@"namespace ProgramTest
-{
-    public class Program
-    {
-        static void Main()
-        {
 
-        }
-    }
-}";
+            string[] actualEvaluations = templateEvaluator.Evaluate(StringConstants.TemplateWithNoExpressions);
 
-            string[] actualEvaluations = templateEvaluator.Evaluate(template);
-
-            Assert.Equal(template, actualEvaluations[0]);
+            Assert.Equal(StringConstants.TemplateWithNoExpressions, actualEvaluations[0]);
         }
     }
 }
