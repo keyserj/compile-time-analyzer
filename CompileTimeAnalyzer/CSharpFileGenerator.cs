@@ -21,17 +21,14 @@ namespace CompileTimeAnalyzer
 
         }
 
-        public void Generate(List<string> templatePaths, string outputDirectory)
+        public void Generate(List<Template> templates, string outputDirectory)
         {
             _fileSystem.Directory.CreateDirectory(outputDirectory);
 
-            foreach (string templatePath in templatePaths)
+            foreach (Template template in templates)
             {
-                string outputFileName = Path.GetFileNameWithoutExtension(templatePath);
-                string outputFilePath = Path.Join(outputDirectory, $"{outputFileName}.cs");
-
-                string template = _fileSystem.File.ReadAllText(templatePath);
-                string evaluatedText = _templateEvaluator.Evaluate(template)[0];
+                string outputFilePath = Path.Join(outputDirectory, $"{template.Name}.cs");
+                string evaluatedText = _templateEvaluator.Evaluate(template.Text)[0];
 
                 _fileSystem.File.WriteAllText(outputFilePath, evaluatedText);
             }

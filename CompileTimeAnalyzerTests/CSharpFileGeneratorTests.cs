@@ -14,7 +14,7 @@ namespace CompileTimeAnalyzerTests
         private readonly CSharpFileGenerator _cSharpFileGenerator;
 
         private readonly string _outputDirectory = @"C:\output\";
-        private readonly List<string> _templatePaths = new List<string>();
+        private readonly List<Template> _templates = new List<Template>();
 
         public CSharpFileGeneratorTests()
         {
@@ -28,9 +28,9 @@ namespace CompileTimeAnalyzerTests
         [Fact]
         public void Generate_basic_csharp_file_in_specific_path()
         {
-            AddTemplateToMockFileSystem(@"C:\template.txt");
+            AddTemplate("template");
 
-            _cSharpFileGenerator.Generate(_templatePaths, _outputDirectory);
+            _cSharpFileGenerator.Generate(_templates, _outputDirectory);
 
             AssertFileIsCreatedInOutputDirectory("template.cs");
         }
@@ -38,11 +38,11 @@ namespace CompileTimeAnalyzerTests
         [Fact]
         public void Generate_three_basic_csharp_files_in_specific_path()
         {
-            AddTemplateToMockFileSystem(@"C:\template1.txt");
-            AddTemplateToMockFileSystem(@"C:\template2.txt");
-            AddTemplateToMockFileSystem(@"C:\template3.txt");
+            AddTemplate("template1");
+            AddTemplate("template2");
+            AddTemplate("template3");
 
-            _cSharpFileGenerator.Generate(_templatePaths, _outputDirectory);
+            _cSharpFileGenerator.Generate(_templates, _outputDirectory);
 
             AssertFileIsCreatedInOutputDirectory("template1.cs");
             AssertFileIsCreatedInOutputDirectory("template2.cs");
@@ -52,9 +52,9 @@ namespace CompileTimeAnalyzerTests
         [Fact]
         public void Generate_evaluates_one_template()
         {
-            AddTemplateToMockFileSystem(@"C:\template.txt");
+            AddTemplate("template");
 
-            _cSharpFileGenerator.Generate(_templatePaths, _outputDirectory);
+            _cSharpFileGenerator.Generate(_templates, _outputDirectory);
 
             _mockTemplateEvaluator.Verify(te => te.Evaluate(It.IsAny<string>()), Times.Exactly(1));
         }
@@ -62,26 +62,24 @@ namespace CompileTimeAnalyzerTests
         [Fact]
         public void Generate_evaluates_multiple_templates()
         {
-            AddTemplateToMockFileSystem(@"C:\template1.txt");
-            AddTemplateToMockFileSystem(@"C:\template2.txt");
-            AddTemplateToMockFileSystem(@"C:\template3.txt");
+            AddTemplate("template1");
+            AddTemplate("template2");
+            AddTemplate("template3");
 
-            _cSharpFileGenerator.Generate(_templatePaths, _outputDirectory);
+            _cSharpFileGenerator.Generate(_templates, _outputDirectory);
 
             _mockTemplateEvaluator.Verify(te => te.Evaluate(It.IsAny<string>()), Times.Exactly(3));
-        }
-
-        private void AddTemplateToMockFileSystem(string templatePath)
-        {
-            MockFileData mockTemplate = new MockFileData(string.Empty);
-            _mockFileSystem.AddFile(templatePath, mockTemplate);
-            _templatePaths.Add(templatePath);
         }
 
         private void AssertFileIsCreatedInOutputDirectory(string fileName)
         {
             string filePath = Path.Join(_outputDirectory, fileName);
             Assert.True(_mockFileSystem.File.Exists(filePath));
+        }
+
+        private void AddTemplate(string templateName)
+        {
+            _templates.Add(new Template(templateName, It.IsAny<string>()));
         }
     }
 }
